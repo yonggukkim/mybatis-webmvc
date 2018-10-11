@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ldg.mybatis.repository.mapper.CommentMapperResultMap">
+<!-- 생성자에 의한 호출 또는 primary key에 의한 출력-->		
+	<resultMap id="constructorResultMap" type="Comment">
+		<constructor>
+			<idArg column="comment_no" javaType="long" /><!-- commentNo PK-->
+			<arg column="user_id" javaType="string" /><!-- userId -->
+			<arg column="reg_date" javaType="date" /><!-- regDate -->
+			<arg column="comment_content" javaType="string" /><!-- commentContent -->
+		</constructor>
+	</resultMap>
+<!-- primary key에 의한 출력 -->		
+	<select id="selectCommentByPrimaryKey" parameterType="long" 
+			resultMap="constructorResultMap"> 
+			SELECT 
+				comment_no,
+				user_id,
+				comment_content,
+				reg_date
+			FROM comment1 
+			WHERE comment_no = #{commentNo} 
+	</select>
+	
+	<!-- 생성자를 이용 -->
+	<select id="selectCommentByPrimaryKeyConstructor" parameterType="long" resultMap="constructorResultMap"> 
+		SELECT 
+			comment_no,
+			user_id,
+			comment_content,
+			reg_date
+		FROM comment1 
+		WHERE comment_no = #{commentNo} 
+	</select>
+
+	<!-- 1:1 출력 -->
+	<resultMap id="associationResultMap" type="Comment">
+		<id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+		<result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+		<association property="user" column="user_id" javaType="User">
+			<id property="userId" column="user_id" />
+			<result property="userName" column="user_name" />
+		</association>
+	</resultMap>
+	<resultMap id="associationResultMap2" type="CommentUser">
+		<association property="comment" column="comment_no" javaType="Comment" resultMap="constructorResultMap" />
+		<association property="user" column="user_id" javaType="User">
+			<id property="userId" column="user_id" />
+			<result property="userName" column="user_name" />
+		</association>
+	</resultMap>
+	<select id="selectCommentByPrimaryKeyAssociation" parameterType="long" resultMap="associationResultMap2"> 
+		SELECT
+		  c.comment_no,
+		  c.user_id,
+		  c.comment_content,
+		  c.reg_date,
+		  u.user_name
+		FROM comment1 c, user1 u
+		WHERE c.user_id = u.user_id
+		AND c.comment_no = #{commentNo} 
+	</select>
+	
+	<!-- 1:N 출력 -->
+	<resultMap id ="collectionResultMap" type="Comment"><!-- 1:N 출력 -->
+		<!-- 1에 해당되는 레코드 출력 -->
+		<id column="comment_no" jdbcType="BIGINT" property="commentNo" /><!-- PK -->
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+		<result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+		<!-- n에 해당되는 레코드 출력 -->
+		<collection property="replies" ofType="Reply">
+			<id property="replyNo" column="reply_no" /><!-- PK -->
+			<result property="userId" column="user_id" />
+			<result property="replyContent" column="reply_content" />
+			<result property="regDate" column="reg_date" />
+		</collection>
+	</resultMap>		
+	<select id="selectCommentByPrimaryKeyCollection" 
+			parameterType="long" resultMap="collectionResultMap"> 
+		SELECT
+		  c.comment_no,
+		  c.user_id,
+		  c.comment_content,
+		  c.reg_date,
+		  r.reply_content,
+		  r.reg_date AS reg_date2
+		FROM comment1 c, reply r
+		WHERE c.comment_no = r.comment_no
+		AND c.comment_no = #{commentNo} 
+	</select>
+
+	<!-- 동적 출력 -->
+	<resultMap id="discriminatorResultMap" type="Comment">
+		<id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+		<result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+		<discriminator javaType="string" column="user_id">
+			<case value="user1" resultMap="baseResultMap" />
+			<case value="manager" resultMap="constructorResultMap" />
+		</discriminator>
+	</resultMap>
+	<resultMap id="baseResultMap" type="Comment">
+		<id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+		<result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+	</resultMap>
+	<select id="selectCommentByPrimaryKeyDiscriminator" parameterType="long" resultMap="discriminatorResultMap"> 
+		SELECT
+		  comment_no,
+		  user_id,
+		  comment_content,
+		  reg_date
+		FROM comment1
+		WHERE comment_no = #{commentNo} 
+	</select>
+
+		
+
+		
+		
+
+</mapper>
