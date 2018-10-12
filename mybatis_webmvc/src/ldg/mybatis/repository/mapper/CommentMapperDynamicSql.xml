@@ -4,8 +4,13 @@
 
 <mapper namespace="ldg.mybatis.repository.mapper.CommentMapperDynamicSql">
 	<cache />
-
-	<select id="selectCommentByConditionTrim" parameterType="hashmap" resultType="Comment">
+	<resultMap type="Comment" id="baseResultMap">
+		<id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="reg_date" jdbcType="TIMESTAMP" property="regDate"/>
+		<result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+	</resultMap>
+	<select id="selectCommentByConditionTrim" parameterType="hashmap" resultMap="baseResultMap">
 		SELECT
 			comment_no,
 			user_id,
@@ -22,7 +27,7 @@
 		</trim>
 	</select>
 	
-	<select id="selectCommentByConditionForeach" parameterType="hashmap" resultType="Comment">
+	<select id="selectCommentByConditionForeach" parameterType="hashmap" resultMap="baseResultMap">
 		SELECT
 			comment_no,
 			user_id,

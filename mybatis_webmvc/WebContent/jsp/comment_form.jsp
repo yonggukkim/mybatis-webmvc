@@ -10,9 +10,9 @@
 <body>
 	여러 개 조회
 	<form name="frm1" action="comment_dynamicsql_foreach.ic" method="POST"><!-- sql에서 in사용 하겠다는 것 -->
-		<input type="text" name="commentNos">
-		<input type="text" name="commentNos">
-		<input type="text" name="commentNos">
+		<input type="text" name="commentNos"><br />
+		<input type="text" name="commentNos"><br />
+		<input type="text" name="commentNos"><br />
 		<input type="submit" value="전송">
 	</form><p>
 	여러 조건 조회

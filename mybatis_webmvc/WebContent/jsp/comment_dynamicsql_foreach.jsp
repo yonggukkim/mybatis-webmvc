@@ -20,8 +20,8 @@ List<Comment> comments = commentService.selectCommentForeach(commentNos);
 	request.setCharacterEncoding("utf-8");
 %>
 <% for( Comment comment : comments ) { %>
-댓글번호 : <%= comment.getCommentNo() %>
-작성자 아이디 : <%= comment.getUserId() %>
-작성일시 : <%= comment.getRegDate() %>
-댓글내용 : <%= comment.getCommentContent() %>
+댓글번호 : <%= comment.getCommentNo() %><br />
+작성자 아이디 : <%= comment.getUserId() %><br />
+작성일시 : <%= comment.getRegDate() %><br />
+댓글내용 : <%= comment.getCommentContent() %><br /><br />
 <% } %>
