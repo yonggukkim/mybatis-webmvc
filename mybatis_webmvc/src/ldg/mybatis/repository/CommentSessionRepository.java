@@ -25,7 +25,7 @@ public class CommentSessionRepository extends AbstractRepository {
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try {
 			String statement = namespace + ".updateCommentTrim";
-			int result = sqlSession.insert(statement, comment);
+			int result = sqlSession.update(statement, comment);
 			if (result > 0) {
 				sqlSession.commit();
 			}
