@@ -12,9 +12,9 @@ public class Comment implements Serializable {
 	private Date regDate;
 	private String commentContent;
 
-	private User user;
+/*	private User user;
 	private List<Reply> replies;
-	private Reply reply;
+	private Reply reply;*/
 
 	public Comment() {
 	}
@@ -68,7 +68,7 @@ public class Comment implements Serializable {
 		this.commentContent = commentContent;
 	}
 
-	public User getUser() {
+/*	public User getUser() {
 		return user;
 	}
 
@@ -90,6 +90,6 @@ public class Comment implements Serializable {
 
 	public void setReply(Reply reply) {
 		this.reply = reply;
-	}
+	}*/
 
 }

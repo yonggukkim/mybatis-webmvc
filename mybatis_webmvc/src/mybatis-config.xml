@@ -20,6 +20,7 @@
 		<typeAlias type="ldg.mybatis.model.Reply" alias="Reply" />
 		<typeAlias type="ldg.mybatis.model.CommentUser" alias="CommentUser" />
 		<typeAlias type="ldg.mybatis.model.CommentReplies" alias="CommentReplies" />
+		<typeAlias type="ldg.mybatis.model.CommentCollections" alias="CommentCollections" />
 	</typeAliases>
 
 	<!-- 타입핸들러 -->

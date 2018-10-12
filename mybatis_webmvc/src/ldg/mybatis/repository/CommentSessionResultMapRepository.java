@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import ldg.mybatis.model.Comment;
+import ldg.mybatis.model.CommentCollections;
 import ldg.mybatis.model.CommentUser;
 
 public class CommentSessionResultMapRepository {
@@ -48,11 +49,11 @@ public class CommentSessionResultMapRepository {
 	}
 	
 	//1:N출력
-	public Comment selectCommentByPrimaryKeyCollection(Long commentNo){
+	public CommentCollections selectCommentByPrimaryKeyCollection(Long commentNo){
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try{
 			String statement = namespace + ".selectCommentByPrimaryKeyCollection";
-			return (Comment)sqlSession.selectOne(statement,commentNo);
+			return (CommentCollections)sqlSession.selectOne(statement,commentNo);
 		}finally{
 			sqlSession.close();
 		}

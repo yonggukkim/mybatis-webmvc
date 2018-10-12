@@ -66,7 +66,7 @@
 	</select>
 	
 	<!-- 1:N 출력 -->
-	<resultMap id ="collectionResultMap" type="Comment"><!-- 1:N 출력 -->
+	<resultMap id ="collectionResultMap" type="CommentCollections"><!-- 1:N 출력 -->
 		<!-- 1에 해당되는 레코드 출력 -->
 		<id column="comment_no" jdbcType="BIGINT" property="commentNo" /><!-- PK -->
 		<result column="user_id" jdbcType="VARCHAR" property="userId" />

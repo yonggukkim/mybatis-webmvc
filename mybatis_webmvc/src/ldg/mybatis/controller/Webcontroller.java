@@ -60,6 +60,34 @@ public class Webcontroller extends javax.servlet.http.HttpServlet implements jav
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/comment_resultmap_collection.ic")) {
+			action = new CommentCollection();
+			try {
+				forward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/comment_resultmap_constructor.ic")) {
+			action = new CommentResultMapService();
+			try {
+				forward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/comment_dynamicsql_foreach.ic")) {
+			action = new CommentDynamicsqlForeach();
+			try {
+				forward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/comment_dynamicsql_select.ic")) {
+			action = new commentDynamicsqlSelect();
+			try {
+				forward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		if(forward != null) {
 			if(forward.isRedirect()) {

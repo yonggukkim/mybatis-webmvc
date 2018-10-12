@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ldg.mybatis.repository.mapper.CommentMapperDynamic">
+<mapper namespace="ldg.mybatis.repository.mapper.CommentMapperDynamicSql">
 	<cache />
 
 	<select id="selectCommentByConditionTrim" parameterType="hashmap" resultType="Comment">
@@ -29,7 +29,7 @@
 			comment_content,
 			reg_date
 		FROM comment1
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		<trim prefix="WHERE" prefixOverrides="AND |OR "><!-- where절 다음에 and나 or이 있다면 제거해라. -->
 			<if test="commentNos != null">
 				comment_no IN 
 				<foreach collection="commentNos" item="commentNo" index="index" open="(" close=")" separator=",">
